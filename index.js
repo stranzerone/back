@@ -18,7 +18,7 @@ const key =process.env.SECRETKEY;
 app.use(
   session({
     key:"userId",
-    secret:process.env.SECRETKEY,
+    secret:key,
     resave:false,
     saveUninitialized:false,
     cookie:{
@@ -250,7 +250,7 @@ app.get('/auth', (req, res) => {
   jwt.verify(token,key, (err, decoded) => {
     if (err) {
       console.log("errrssssss")
-      return res.status(401).json({ message: 'no' });
+      return res.status(401).json({ message: 'no check' });
      
     }
     // Token is valid
