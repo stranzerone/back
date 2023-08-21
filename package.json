@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "index.js",
-    "start": "node index.js",
+    "start": "node --experimental-specifier-resolution=node index.js",
     "dev": "concurrently \"npm start \"\" npm run client\"",
     "build": "node index.js"
   },
