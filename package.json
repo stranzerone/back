@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "index.js",
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "dev": "concurrently \"npm start \"\" npm run client\"",
-    "build": "nodemon index.js"
+    "build": "node index.js"
   },
   "keywords": [],
   "author": "",
