@@ -13,6 +13,7 @@ const saltRound = 5;
 const app = express();
 const database= process.env.DATABASE;
 const PORT = process.env.PORT;
+const key =process.env.SECRETKEY;
 
 app.use(
   session({
@@ -246,7 +247,7 @@ if(datas){
 
 app.get('/auth', (req, res) => {
   const  token  = req.cookies.token;
-  jwt.verify(token,"subscribe", (err, decoded) => {
+  jwt.verify(token,key, (err, decoded) => {
     if (err) {
       console.log("errrssssss")
       return res.status(401).json({ message: 'no' });
