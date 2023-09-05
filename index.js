@@ -1,4 +1,4 @@
-import express, { response }  from 'express';
+import express  from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors'
@@ -6,14 +6,19 @@ import bcrypt from 'bcrypt';
 import  session  from 'express-session';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv';
+dotenv.config(); // Load environment variables from .env file
+
 const saltRound = 5;
 const app = express();
-
+const database= process.env.DATABASE;
+const PORT = process.env.PORT;
+const key =process.env.SECRETKEY;
 
 app.use(
   session({
     key:"userId",
-    secret:"subscribe",
+    secret:key,
     resave:false,
     saveUninitialized:false,
     cookie:{
@@ -28,7 +33,7 @@ app.use(
 app.use(cookieParser());
 
 
-mongoose.connect('mongodb+srv://SahilMulani:Sahil2165@cluster0.yqlks9v.mongodb.net/').then(
+mongoose.connect(database).then(
   console.log("server conndected")
 )
 
@@ -41,7 +46,7 @@ mongoose.connect('mongodb+srv://SahilMulani:Sahil2165@cluster0.yqlks9v.mongodb.n
 
 
 app.use(bodyParser.json());
-app.use( "*", cors({origin: "http://localhost:3000", credentials: true }));
+app.use( "*", cors({origin: ["http://localhost:3000","https://crptoapp.onrender.com"], credentials: true }));
 
 
 
@@ -242,7 +247,7 @@ if(datas){
 
 app.get('/auth', (req, res) => {
   const  token  = req.cookies.token;
-  jwt.verify(token,"subscribe", (err, decoded) => {
+  jwt.verify(token,key, (err, decoded) => {
     if (err) {
       console.log("errrssssss")
       return res.status(401).json({ message: 'no' });
@@ -486,6 +491,6 @@ app.post("delete",(req,res)=>{
 
 
 
-app.listen(5000, () => {
-  console.log(`Server is running on http://localhost:5000`);
+app.listen(PORT, () => {
+  console.log(`Server is running on ${PORT}`);
 })
