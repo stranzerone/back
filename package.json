@@ -5,10 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "index.js",
-    "start": "node index.js",
-    "dev": "concurrently \"npm start \"\" npm run client\"",
-    "build": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
