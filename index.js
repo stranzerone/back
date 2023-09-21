@@ -211,7 +211,7 @@ if(datas){
     if(err){
       console.log(err);
     }if(result){
-      const token = jwt.sign({ userId: datas._id }, "subscribe",{expiresIn:"1h"} );
+      const token = jwt.sign({ userId: datas.username }, "subscribe",{expiresIn:"1h"} );
       res.cookie('token', token);
       
       
