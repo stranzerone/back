@@ -279,8 +279,9 @@ const get= req.body;
 const token =req.cookies.token;
 const add = parseFloat(get.stocks);
 const price = parseFloat(get.price);
+const username = req.body.username
 
-Use.findOne({Token:token}).then(
+Use.findOne({username:username}).then(
   (response)=>{
    console.log("user found",response);
    Data.updateOne({user:response.username},{Wallet:response.Wallet})
@@ -304,8 +305,8 @@ if(respon.length>0){
           }
         )
         const NewWallet =parseFloat(get.stocks)*parseFloat(get.price);
-
-        Use.findOne({Token:token}).then(
+       const username = req.body.username
+        Use.findOne({username:username}).then(
           (res)=>{
            console.log("oooo",get.amount);
            const Owallet= parseFloat(res.Wallet);
@@ -338,11 +339,11 @@ if(respon.length>0){
    
       })
       data.save();
-      Use.findOne({Token:token}).then(
+      Use.findOne({username:username}).then(
         (res)=>{
           const oldwallet =res.Wallet;
           const NewWallet = parseFloat(oldwallet)-NWallet;
-         Use.updateOne({Token:token},{Wallet:NewWallet}).then(
+         Use.updateOne({username:username},{Wallet:NewWallet}).then(
           (respo)=>{
             console.log(respo);
           }
@@ -377,7 +378,7 @@ if(respon.length>0){
       }
     )
 
-    Use.findOne({ Token: req.cookies.token }).then((result) => {
+    Use.findOne({ username: req.body.username }).then((result) => {
       Data.find({ user: result.username }).then((data) => {
         if (data) {
           res.send(data);
@@ -393,8 +394,9 @@ if(respon.length>0){
    app.get("/nav",(req,res)=>{
     const token = req.cookies.token;
     console.log(token);
+    const username =req.body.username
     
-    Use.findOne({Token:token}).then(
+    Use.findOne({username:username}).then(
       (result)=>{
         res.send(result);
         console.log(result.username);
@@ -416,10 +418,11 @@ if(respon.length>0){
    app.post("/sell",(req,res)=>{
 const Token =req.cookies.token;
 const amo = parseFloat(req.body.current);
+const username = req.body.username
 console.log(Token);
 console.log("requested money",amo);
 
-Use.findOne({Token:Token}).then(
+Use.findOne({username:username}).then(
   (resp)=>{
     const New = parseFloat(resp.Wallet)+amo;
     console.log("money going to be added is ",amo);
@@ -471,9 +474,10 @@ Data.updateMany({user:resp.username,name:req.body.name},{stocks:latestS,amount:l
 
 app.post("delete",(req,res)=>{
 
+  const username = req.body.username
  const  Token =req.cookies.token;
  console.log("ihave got uer to delete");
- Use.findOne({Token:Token}).then(
+ Use.findOne({username:username}).then(
   (response)=>{
     const user =response.username;
     console.log("user is being deleted");
